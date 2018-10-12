@@ -1,0 +1,28 @@
+{
+  "name": "rs-doctor",
+  "version": "1.0.0",
+  "description": "A virtual mentor that assesses the management skills of new managers.",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon ./index.js",
+    "start": "node ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nguyen-baolan/RS-Doctor.git"
+  },
+  "author": "Bao Nguyen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nguyen-baolan/RS-Doctor/issues"
+  },
+  "homepage": "https://github.com/nguyen-baolan/RS-Doctor#readme",
+  "dependencies": {
+    "apiai": "^4.0.3",
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "nodemon": "^1.18.4",
+    "uuid": "^3.3.2"
+  }
+}
