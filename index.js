@@ -12,7 +12,9 @@ const config = require("./config");
 var app = express();
 
 //setting Port
-app.set("port", process.env.PORT || 5000);
+//app.set("port", process.env.PORT || 5000);
+
+/* #####  STANDARD MIDDLEWARE ##### */
 
 //serve static files in the public directory
 app.use(express.static("public"));
@@ -26,6 +28,12 @@ app.use(
 
 // Process application/json
 app.use(bodyParser.json());
+
+
+/* #####  ROUTING MIDDLEWARE ##### */
+
+//add routing middleware here
+
 
 // Index route
 app.get("/", function (req, res) {
@@ -86,6 +94,33 @@ app.post("/webhook/", function (req, res) {
     } console.log("page is broken" && data.object);
   });
 
+
+ 
+/* #####  MIDDLEWARE TO CATCH ERRORS ##### */
+
+
+  // catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
+  });
+  
+  // error handler
+  app.use(function(err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+  
+    // render the error page
+    res.status(err.status || 500);
+    res.render('error');
+  });
+
+
+
+
+
   function receivedMessage(event) {
     var senderID = event.sender.id;
     var recipientID = event.recipient.id;
@@ -112,6 +147,11 @@ app.post("/webhook/", function (req, res) {
     }
   }
 
+/**
+ * Displays 'typing' to FB Messenger and call handleApiAiResponse(sender,response) to handle the response
+ * @param {*} ID of the sender 
+ * @param {*} text sent to DialogFlow
+ */
   function sendToApiAi(sender, text) {
     typing.sendTypingOn(sender);
     
